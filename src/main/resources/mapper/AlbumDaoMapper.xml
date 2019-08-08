@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.baizhi.dao.AlbumDao">
+
+    <!--查询所有并分页-->
+    <select id="selectAll" resultType="Album">
+         select id,title, author, score, cover_img, broadcast, count, content, pub_date from  c_album
+            limit ${(page-1)*rows},#{rows}
+    </select>
+    <!--查询总条数-->
+    <select id="totalCount" resultType="Integer">
+        select count(*) from  c_album
+    </select>
+    <!--添加一个轮播图-->
+    <insert id="insertOne">
+        insert into c_album(id, title, author, score, cover_img, broadcast, count, content, pub_date) values (#{id},#{title},#{author},#{score},#{cover_img},#{broadcast},#{count},#{content},#{pub_date})
+    </insert>
+    <!--修改一个轮播图-->
+    <update id="updateOne">
+        update c_album
+        <set>
+            <if test="title!=null">
+                title=#{title},
+            </if>
+            <if test="author!=null">
+                author=#{author},
+            </if>
+            <if test="score!=null">
+                score=#{score},
+            </if>
+            <if test="cover_img!=null">
+                cover_img=#{cover_img},
+            </if>
+            <if test="broadcast!=null">
+                broadcast=#{broadcast},
+            </if>
+            <if test="count!=null">
+                count=#{count},
+            </if>
+            <if test="content!=null">
+                content=#{content},
+            </if>
+            <if test="pub_date!=null">
+                pub_date=#{pub_date}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <!--删除一个轮播图-->
+    <delete id="deleteOne">
+        delete from c_album where id = #{id}
+    </delete>
+</mapper>

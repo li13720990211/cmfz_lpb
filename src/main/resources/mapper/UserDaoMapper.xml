@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.baizhi.dao.UserDao">
+    <!--查询所有并分页-->
+    <select id="selectAll" resultType="User">
+         select id,name,ahama,pic_img,phone,password,salt,sex,city,sign,status,reg_date,guru_id from c_user
+            limit ${(page-1)*rows},#{rows}
+    </select>
+    <!--查询总条数-->
+    <select id="totalCount" resultType="Integer">
+        select count(*) from  c_user
+    </select>
+    <!--添加一个用户-->
+    <insert id="insertOne">
+        insert into c_user values (#{id},#{name},#{ahama},#{pic_img},#{phone},#{password},#{salt},#{sex},#{city},#{sign},#{status},#{reg_date},#{guru_id})
+    </insert>
+    <!--修改一个用户状态-->
+    <update id="updateStatus">
+        update c_user
+        <set>
+            <if test="name!=null">name=#{name},</if>
+            <if test="ahama!=null">ahama=#{ahama},</if>
+            <if test="pic_img!=null">pic_img=#{pic_img},</if>
+            <if test="phone!=null">phone=#{phone},</if>
+            <if test="password!=null">password=#{password},</if>
+            <if test="salt!=null">salt=#{salt},</if>
+            <if test="sex!=null">sex=#{sex},</if>
+            <if test="city!=null">city=#{city},</if>
+            <if test="sign!=null">sign=#{sign},</if>
+            <if test="status!=null">status=#{status},</if>
+            <if test="reg_date!=null">reg_date=#{reg_date},</if>
+            <if test="guru_id!=null">guru_id=#{guru_id},</if>
+        </set>
+        where id = #{id}
+    </update>
+    <!--删除一个用户-->
+    <delete id="deleteOne">
+        delete from c_user where id = #{id}
+    </delete>
+
+    <!--查询所有  导入表格中-->
+    <select id="EasyPoi" resultType="User">
+        select id,name,ahama,pic_img,phone,password,salt,sex,city,sign,status,reg_date,guru_id from c_user
+    </select>
+
+    <!--模糊查询-->
+    <select id="count" resultType="Integer">
+        select count(*) from  c_user where reg_date like #{month} and sex=#{sex}
+    </select>
+
+    <!--查询条数根据城市分组-->
+    <select id="citys" resultType="City">
+        select city as name,count(*) as value from c_user where sex=#{sex} GROUP BY city
+    </select>
+</mapper>

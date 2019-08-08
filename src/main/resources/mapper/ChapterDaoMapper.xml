@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.baizhi.dao.ChapterDao">
+    <!--查询所有并分页-->
+    <select id="selectAll" resultType="Chapter">
+         select id,url,size,duration,up_date,album_id  from  c_chapter where album_id = #{album_id}
+            limit ${(page-1)*rows},#{rows}
+    </select>
+    <!--查询总条数-->
+    <select id="totalCount" resultType="Integer">
+        select count(*) from  c_chapter where album_id=#{album_id}
+    </select>
+    <!--添加一个章节-->
+    <insert id="insertOne">
+        insert into c_chapter(id,url,size,duration,up_date,album_id) values (#{id},#{url},#{size},#{duration},#{up_date},#{album_id})
+    </insert>
+    <!--修改一个章节-->
+    <update id="updateOne">
+        update c_chapter
+        <set>
+            <if test="url!=null">url=#{url},</if>
+            <if test="size!=null">size=#{size},</if>
+            <if test="duration!=null">duration=#{duration},</if>
+            <if test="up_date!=null">up_date=#{up_date},</if>
+            <if test="album_id!=null">album_id=#{album_id},</if>
+        </set>
+        where id = #{id}
+    </update>
+    <!--删除一个章节-->
+    <delete id="deleteOne">
+        delete from c_chapter where id = #{id}
+    </delete>
+
+    <select id="selectAllById" resultType="Chapter">
+        select id,url,size,duration,up_date,album_id  from  c_chapter where album_id = #{album_id}
+    </select>
+</mapper>
