@@ -8,6 +8,6 @@ public class userPhoneCode {
 
         String phoneMsg = PhoneCodeUtil.getPhoneMessage("13720990211");
         System.out.println(phoneMsg);
-
-    }
-}
+        System.out.println("小波是最帅的，啊哈哈哈哈哈");
+    }  
+}           
