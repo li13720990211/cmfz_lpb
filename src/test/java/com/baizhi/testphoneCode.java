@@ -56,6 +56,9 @@ public class testphoneCode {
 
     public static void main(String[] args) {
          System.out.println("使用GitHub添加了一行");
+         
+         System.out.println("后台加了一行");
+         
         try {
             SendSmsResponse sendSmsResponse = testPhoneCode();
             String code = sendSmsResponse.getCode();
